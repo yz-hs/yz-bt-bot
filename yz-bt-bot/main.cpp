@@ -9,34 +9,6 @@ using namespace cq;
 using namespace std;
 using Message = cq::message::Message;
 using MessageSegment = cq::message::MessageSegment;
-/*
-
-bug & todo list:
-
-运行代码的字符编码问题，导致 无法/错误 读入 输入输出数据。
-
-可以将各命令合并,某一类功能项目包含有关功能。
-
-加入复读功能，要实现在lambda体外，否则报错。
-
-将命令前缀符由#改为$，这样就像敲命令行的 淦 jio。
-
-对单独命令应有单独的help，参数为-help。
-
-对运行代码功能加入沙盒，否则太危险。要么就直接取消运行代码功能。
-
-将bot的运行端转移到破电脑。
-
-改版help界面，使之更美观。
-
-对读入命令要严谨化（现在不够严谨）。考虑使用 检测是否包含字符串 的形式，这样就命令可以嵌入聊天文本中。
-
-加入 特定词语识别器 当消息中出现某段话，进行相应的输出/动作。如，
-!sleep 禁言自己8h 
-I AK IOI 自动膜拜
-嘤嘤嘤 卖萌
-
-*/
 
 string helper={
     "帮助—— yz-bt酱（命令以#开头） \
@@ -247,11 +219,13 @@ CQ_INIT {
             }
             else if(event.message=="#runcode")
             {
+                system("cd yz-bt-run");
                 system("dongbei.py code.txt < read.txt > ans.txt");
                 ifstream fin("ans.txt", ios::in);
                 istreambuf_iterator<char>beg(fin), end;
                 string ans(beg, end);
                 fin.close();
+                system("cd ..");
                 send_message(event.target,"运行结果：");
                 send_message(event.target,ans);
             }
@@ -278,15 +252,18 @@ CQ_INIT {
             {
                 if(event.message[0]=='#'&&event.message[1]=='r'&&event.message[2]=='e'&&event.message[3]=='a'&&event.message[4]=='d')
                 {
+                    system("cd yz-bt-run");
                     ofstream fout("read.txt");
                     string scode=event.message.substr(6,event.message.size());
                     for(auto &c:scode) if(c=='\r') c=0;
                     fout<<scode;
                     fout.close();
+                    system("cd ..");
                     send_message(event.target,"输入数据已保存");
                 }
                 else if(event.message[0]=='#'&&event.message[1]=='r'&&event.message[2]=='u'&&event.message[3]=='n')
                 {
+                    system("cd yz-bt-run");
                     string tmp,ans;
                     ofstream fout;
                     fout.open("code.txt");
@@ -297,6 +274,7 @@ CQ_INIT {
                     ifstream fin("ans.txt", ios::in);
                     while(fin>>tmp) ans+=tmp,ans+=' ';
                     fin.close();
+                    system("cd ..");
                     send_message(event.target,"运行结果：");
                     send_message(event.target,ans);
                 }
