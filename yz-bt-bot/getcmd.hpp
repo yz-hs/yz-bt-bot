@@ -2,6 +2,8 @@
 
 using namespace std;
 
+const string NOT_FOUND="notfound";
+
 /*
 存放所有的主命令
 */
@@ -23,5 +25,7 @@ const string scmdlist[]={
     "-pause-"
     "-read-"
     "-help-"
+    "-true-"
+    "-false-"
 };
-const int scmdnum=3;
+const int scmdnum=5;
