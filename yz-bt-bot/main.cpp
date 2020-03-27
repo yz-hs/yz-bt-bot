@@ -2,7 +2,7 @@
 #include <set>
 #include <sstream>
 #include <fstream>
-
+//debug群号：1093911579
 #include <cqcppsdk/cqcppsdk.h>
 
 using namespace cq;
@@ -187,7 +187,7 @@ CQ_INIT {
     });
 
     on_group_message([](const GroupMessageEvent &event) {
-        static const set<int64_t> ENABLED_GROUPS = {790890146,788218488,1085366379,817607767,659164017,383575479,1015504552};
+        static const set<int64_t> ENABLED_GROUPS = {1093911579/*,790890146,788218488,1085366379,817607767,659164017,383575479,1015504552*/};
         if (ENABLED_GROUPS.count(event.group_id) == 0) return; // 不在启用的群中, 忽略
         try {
             if(event.message=="#about")//关于
@@ -219,13 +219,13 @@ CQ_INIT {
             }
             else if(event.message=="#runcode")
             {
-                system("cd yz-bt-run");
-                system("dongbei.py code.txt < read.txt > ans.txt");
-                ifstream fin("ans.txt", ios::in);
+                //system("cd yz-bt-run");
+                system("yz-bt-run\\dongbei.py .\\yz-bt-run\\code.txt < .\\yz-bt-run\\read.txt > .\\yz-bt-run\\ans.txt");
+                ifstream fin("./yz-bt-run/ans.txt", ios::in);
                 istreambuf_iterator<char>beg(fin), end;
                 string ans(beg, end);
                 fin.close();
-                system("cd ..");
+                //system("cd ..");
                 send_message(event.target,"运行结果：");
                 send_message(event.target,ans);
             }
@@ -252,29 +252,29 @@ CQ_INIT {
             {
                 if(event.message[0]=='#'&&event.message[1]=='r'&&event.message[2]=='e'&&event.message[3]=='a'&&event.message[4]=='d')
                 {
-                    system("cd yz-bt-run");
-                    ofstream fout("read.txt");
+                    //system("cd yz-bt-run");
+                    ofstream fout("./yz-bt-run/read.txt");
                     string scode=event.message.substr(6,event.message.size());
                     for(auto &c:scode) if(c=='\r') c=0;
                     fout<<scode;
                     fout.close();
-                    system("cd ..");
+                    //system("cd ..");
                     send_message(event.target,"输入数据已保存");
                 }
                 else if(event.message[0]=='#'&&event.message[1]=='r'&&event.message[2]=='u'&&event.message[3]=='n')
                 {
-                    system("cd yz-bt-run");
+                    //system("cd yz-bt-run");
                     string tmp,ans;
                     ofstream fout;
-                    fout.open("code.txt");
+                    fout.open("./yz-bt-run/code.txt");
                     string scode=event.message.substr(5,event.message.size());
                     fout<<scode;
                     fout.close();
-                    system("dongbei.py code.txt < read.txt > ans.txt");
-                    ifstream fin("ans.txt", ios::in);
+                    system("yz-bt-run\\dongbei.py .\\yz-bt-run\\code.txt < .\\yz-bt-run\\read.txt > .\\yz-bt-run\\ans.txt");
+                    ifstream fin("./yz-bt-run/ans.txt", ios::in);
                     while(fin>>tmp) ans+=tmp,ans+=' ';
                     fin.close();
-                    system("cd ..");
+                    //system("cd ..");
                     send_message(event.target,"运行结果：");
                     send_message(event.target,ans);
                 }
