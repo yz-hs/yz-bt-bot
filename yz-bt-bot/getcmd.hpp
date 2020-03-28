@@ -9,7 +9,7 @@ const string NOT_FOUND="notfound";
 */
 
 const string mcmdlist[]={
-    "run",//运行命令
+    "run",
     "runcode",
     "qwq",
     "ban",
@@ -22,10 +22,10 @@ const int mcmdnum=5;
 */
 
 const string scmdlist[]={
-    "-pause-"
-    "-read-"
-    "-help-"
-    "-true-"
+    "-pause-",/*shit昨天忘记加逗号','导致bug一堆 —— 2020-03-28*/
+    "-read-",
+    "-help-",
+    "-true-",
     "-false-"
 };
 const int scmdnum=5;
