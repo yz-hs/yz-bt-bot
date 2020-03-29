@@ -56,13 +56,17 @@ string HELP={
    \n 监测入群、离群事件。\
    \n注意：\
    \n 您输入的命令与参数可任意魔改顺序，甚至添加无关的话。\
-   \n 参数约定：由两个特定字符包裹。-表示内置参数，*表示数字参数，#表示字符串参数。"
+   \n 参数约定：由两个特定字符包裹。-表示内置参数，*表示数字参数，#表示字符串参数。\
+   \n 更多内容请访问：https://github.com/yz-hs/yz-bt-bot/blob/master/features.md。"
 };
 
 string ABOUT={
     "关于——yz-bt酱\
    \n-------------------\
    \nmade by yz-hs.\
+   \n赞助者：fqt & sxs。\
+   \nyz-hs官网：http://orzyz.tk/。\
+   \n项目地址：https://github.com/yz-hs/yz-bt-bot/。\
    \nyz-bt酱 v2.0.0"
 };
 
@@ -89,6 +93,7 @@ CQ_INIT {
                 if(therecmd(event.message,"-help-"))
                     send_message(event.target,ABOUT_HELP);
                 send_message(event.target,ABOUT);
+                send_message(event.target,"[CQ:share,url=https://github.com/yz-hs/yz-bt-bot,title=项目地址,content=项目地址：yz-bt-bot]");
             }
             else if(mcmd=="$qwq")
             {
@@ -102,19 +107,23 @@ CQ_INIT {
                 if(therecmd(event.message,"-help-"))
                     send_message(event.target,REP_HELP);
                 int64_t fortimes=getncmd(event.message,1);
-                string str=getstrcmd(event.message,1);
-                for(int i=1;i<=mymin(15,fortimes);i++)
-                    send_message(event.target,str);
+                string str=getstrcmd(event.message,1),sub[1000];
+                int cnt=0,pre=0,pos=getstrp(str,"-pause-");
+                while(pos!=-1)
+                {
+                    sub[++cnt]=str.substr(pre,pos-pre);
+                    pre=pos+7;
+                    str[pre-3]=0;//破坏-pause-使得识别不到
+                    pos=getstrp(str,"-pause-");
+                }
+                sub[++cnt]=str.substr(pre,str.length()-pre);
+                for(int i=1;i<=mymin(10,fortimes);i++)
+                    for(int j=1;j<=cnt;j++)
+                        send_message(event.target,sub[j]);
             }
             else
             {
-                if(mcmd==NOT_FOUND&&therecmd(event.message,"$"))
-                {
-                    if(therecmd(event.message,"-help-"))
-                        send_message(event.target,REPEAT_HELP);
-                    send_message(event.target,AIrepeat(event.message));
-                }
-                else if(therecmd(event.message,"IOI")&&therecmd(event.message,"AK"))
+                if(therecmd(event.message,"IOI")&&therecmd(event.message,"AK"))
                 {
                     send_message(event.target,"orz！太强了！%%%！");
                 }
@@ -133,6 +142,20 @@ CQ_INIT {
                 }
                 else
                 {
+                    if(therecmd(event.message,"-help-"))
+                        send_message(event.target,REPEAT_HELP);
+                    string str=event.message,sub[1000];
+                    int cnt=0,pre=0,pos=getstrp(str,"-pause-");
+                    while(pos!=-1)
+                    {
+                        sub[++cnt]=str.substr(pre,pos-pre);
+                        pre=pos+7;
+                        str[pre-3]=0;//破坏-pause-使得识别不到
+                        pos=getstrp(str,"-pause-");
+                    }
+                    sub[++cnt]=str.substr(pre,str.length()-pre);
+                    for(int i=1;i<=cnt;i++)
+                        send_message(event.target,AIrepeat(sub[i]));
                     int tmp=rand()%100;
                     if(tmp<=10)
                         send_message(event.target,"[CQ:face,id=187]");
@@ -217,9 +240,19 @@ CQ_INIT {
                 if(therecmd(event.message,"-help-"))
                     send_message(event.target,REP_HELP);
                 int64_t fortimes=getncmd(event.message,1);
-                string str=getstrcmd(event.message,1);
-                for(int64_t i=1;i<=mymin(15,fortimes);i++)
-                    send_message(event.target,str);
+                string str=getstrcmd(event.message,1),sub[1000];
+                int cnt=0,pre=0,pos=getstrp(str,"-pause-");
+                while(pos!=-1)
+                {
+                    sub[++cnt]=str.substr(pre,pos-pre);
+                    pre=pos+7;
+                    str[pre-3]=0;//破坏-pause-使得识别不到
+                    pos=getstrp(str,"-pause-");
+                }
+                sub[++cnt]=str.substr(pre,str.length()-pre);
+                for(int i=1;i<=mymin(10,fortimes);i++)
+                    for(int j=1;j<=cnt;j++)
+                        send_message(event.target,sub[j]);
             }
             else
             {
@@ -227,7 +260,18 @@ CQ_INIT {
                 {
                     if(therecmd(event.message,"-help-"))
                         send_message(event.target,REPEAT_HELP);
-                    send_message(event.target,AIrepeat(event.message));
+                    string str=event.message,sub[1000];
+                    int cnt=0,pre=0,pos=getstrp(str,"-pause-");
+                    while(pos!=-1)
+                    {
+                        sub[++cnt]=str.substr(pre,pos-pre);
+                        pre=pos+7;
+                        str[pre-3]=0;//破坏-pause-使得识别不到
+                        pos=getstrp(str,"-pause-");
+                    }
+                    sub[++cnt]=str.substr(pre,str.length()-pre);
+                    for(int i=1;i<=cnt;i++)
+                        send_message(event.target,AIrepeat(sub[i]));
                 }
                 else if(therecmd(event.message,"!sleep"))
                 {
