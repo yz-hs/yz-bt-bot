@@ -66,4 +66,4 @@ $itisundefined$rep*9*测试#test#当然这样也是行的
 
 - `-pause-`：将消息分割发送。
 - `-help-`：打印主命令的帮助。
-- `-read-`：`$run`命令保存输入。
+- `-read-`：`$run`命令保存输入（未开发）。
