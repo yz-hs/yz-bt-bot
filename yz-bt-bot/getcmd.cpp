@@ -5,47 +5,20 @@
 #include<cstdio>
 #include<cstdlib>
 #include<string>
-#define int64_t long long
 
 using namespace std;
 
-//******变量声明区
-
-string NOT_FOUND="notfound";//404找不到
-
-const char mcmdlist[100][100]={
-    "$run",
-    "$runcode",
-    "$qwq",
-    "$ban",
-    "$set_admin",
-    "$whole_ban",
-    "$peo",
-    "$name",
-    "$about",
-    "$help",
-    "$rep"
-};
-const int mcmdnum=11;
-
-/*
-存放所有的参数
-*/
-
-const char scmdlist[100][100]={
-    "-pause-",/*shit昨天忘记加逗号','导致bug一堆 —— 2020-03-28*/
-    "-read-",
-    "-help-"
-};
-const int scmdnum=3;
-
-//******
+extern string NOT_FOUND;
+extern string mcmdlist[];
+extern int64_t mcmdnum;
+extern string scmdlist[];
+extern int64_t scmdnum;
 
 /*
 2020=03-27 写此三个函数
 */
 
-int mymin(int a,int b)//否则找不到标识符
+int64_t mymin(int64_t a,int64_t b)//否则找不到标识符
 {
     if(a>b)
         return b;
@@ -81,37 +54,22 @@ int getstrp(const std::string &str,const std::string &sub)//获取一个子串�
            增加函数getncmd用于获取数字参数
            增加函数therescmd用于检测某个参数的存在
            增加函数getstrcmd用于获取字符串参数
+2020-04-01 删除部分函数
+           调整部分函数名称
 */
 
 string getmcmd(string str)//获取主命令
 {
     string re=NOT_FOUND;
-    int pl=-1;
-    for(int i=0;i<mcmdnum;i++)
+    int64_t pl=-1;
+    for(int64_t i=0;i<mcmdnum;i++)
     {
-        int tmp=getstrp(str,mcmdlist[i]);
+        int64_t tmp=getstrp(str,mcmdlist[i]);
         if(tmp!=-1)
         {
             pl=((pl==-1)?(tmp):(mymin(pl,tmp)));
             if(pl==tmp)
                 re=mcmdlist[i];
-        }
-    }
-    return re;
-}
-
-string getscmd(string str)//获取参数
-{
-    string re=NOT_FOUND;
-    int pl=-1;
-    for(int i=0;i<scmdnum;i++)
-    {
-        int tmp=getstrp(str,scmdlist[i]);
-        if(tmp!=-1)
-        {
-            pl=((pl==-1)?(tmp):(mymin(pl,tmp)));
-            if(pl==tmp)
-                re=scmdlist[i];
         }
     }
     return re;
@@ -135,7 +93,7 @@ int64_t getncmd(string str,int fortimes)//获取数字参数
     return ans;
 }
 
-string getstrcmd(string str,int fortimes)//获取字符串参数
+string getscmd(string str,int fortimes)//获取字符串参数
 {
     int64_t tal=0;
     string ans;
@@ -154,7 +112,7 @@ string getstrcmd(string str,int fortimes)//获取字符串参数
     return ans;
 }
 
-bool therecmd(string str,string sub)
+bool therecmd(string str,string sub)//是否包含命令
 {
     return getstrp(str,sub)==-1?0:1;
 }

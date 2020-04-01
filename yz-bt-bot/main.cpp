@@ -27,51 +27,26 @@ extern string PEO_HELP;
 extern string NAME_HELP;
 extern string REP_HELP;
 extern string NOT_FOUND;
+extern string qwqlist[];
+extern string HELP;
+extern string ABOUT;
+extern string PAUSE;
+extern string RANDOM_SEND_M;
 extern const char mcmdlist[100][100];
-extern const int mcmdnum;
+extern const int64_t mcmdnum;
 extern const char scmdlist[100][100];
-extern const int scmdnum;
-extern int mymin(int a,int b);
+extern const int64_t scmdnum;
+extern int64_t qwqnum;
+extern int RANDOM_SEND_P;
+extern int64_t mymin(int64_t a,int64_t b);
 extern void rplace(std::string &strBig,const std::string &strsrc,const std::string &strdst);
 extern int getstrp(const std::string &str,const std::string &sub);
 extern string getmcmd(string str);
-extern string getscmd(string str);
 extern int64_t getncmd(string str,int fortimes);
-extern string getstrcmd(string str,int fortimes);
+extern string getscmd(string str,int fortimes);
 extern bool therecmd(string str,string sub);
 extern string AIrepeat(string str);
-
-//******
-
-string HELP={
-    "帮助—— yz-bt酱（命令以$开头）\
-   \n-----------------------------\
-   \n命令：\
-   \n详情请在命令后加-help-参数。\
-   \n 群管理：set_admin ban whole_ban peo name。\
-   \n 代码相关：run runcode。\
-   \n 杂项：about qwq help rep (包含$的任意话)。\
-   \n被动：\
-   \n 监测上传文件事件。\
-   \n 监测入群、离群事件。\
-   \n注意：\
-   \n 您输入的命令与参数可任意魔改顺序，甚至添加无关的话。\
-   \n 参数约定：由两个特定字符包裹。-表示内置参数，*表示数字参数，#表示字符串参数。\
-   \n 更多内容请访问：https://github.com/yz-hs/yz-bt-bot/blob/master/features.md。"
-};
-
-string ABOUT={
-    "关于——yz-bt酱\
-   \n-------------------\
-   \nmade by yz-hs.\
-   \n赞助者：fqt & sxs。\
-   \nyz-hs官网：http://orzyz.tk/。\
-   \n项目地址：https://github.com/yz-hs/yz-bt-bot/。\
-   \nyz-bt酱 v2.0.0"
-};
-
-string qwqlist[]={"qwq","嘤嘤嘤","QwQ","(*≧▽≦)o☆","ヾ(≧▽≦*)o","qwq",
-                  "/w\\","yz-bt真可爱！","pwp","awa","TAT"};
+extern set<int64_t> ENABLED_GROUPS;
 
 CQ_INIT {
     srand((int)(time(0)));
@@ -93,31 +68,30 @@ CQ_INIT {
                 if(therecmd(event.message,"-help-"))
                     send_message(event.target,ABOUT_HELP);
                 send_message(event.target,ABOUT);
-                send_message(event.target,"[CQ:share,url=https://github.com/yz-hs/yz-bt-bot,title=项目地址,content=项目地址：yz-bt-bot]");
             }
             else if(mcmd=="$qwq")
             {
                 if(therecmd(event.message,"-help-"))
                     send_message(event.target,QWQ_HELP);
-                int qwqnum=rand()%10;
-                send_message(event.target,qwqlist[qwqnum]);
+                int qwq=rand()%qwqnum;
+                send_message(event.target,qwqlist[qwq]);
             }
             else if(mcmd=="$rep")
             {
                 if(therecmd(event.message,"-help-"))
                     send_message(event.target,REP_HELP);
                 int64_t fortimes=getncmd(event.message,1);
-                string str=getstrcmd(event.message,1),sub[1000];
-                int cnt=0,pre=0,pos=getstrp(str,"-pause-");
+                string str=event.message,sub[1000];
+                int cnt=0,pre=0,pos=getstrp(str,PAUSE);
                 while(pos!=-1)
                 {
                     sub[++cnt]=str.substr(pre,pos-pre);
-                    pre=pos+7;
-                    str[pre-3]=0;//破坏-pause-使得识别不到
-                    pos=getstrp(str,"-pause-");
+                    pre=pos+PAUSE.length();
+                    str=str.substr(pre,str.length());
+                    pos=getstrp(str,PAUSE);
                 }
-                sub[++cnt]=str.substr(pre,str.length()-pre);
-                for(int i=1;i<=mymin(10,fortimes);i++)
+                sub[++cnt]=str;
+                for(int64_t i=1;i<=mymin(10,fortimes);i++)
                     for(int j=1;j<=cnt;j++)
                         send_message(event.target,sub[j]);
             }
@@ -129,8 +103,8 @@ CQ_INIT {
                 }
                 else if(therecmd(event.message,"嘤")||therecmd(event.message,"哼")||therecmd(event.message,"[CQ:face,id=187]"))
                 {
-                    int qwqnum=rand()%10;
-                    send_message(event.target,qwqlist[qwqnum]);
+                    int qwq=rand()%qwqnum;
+                    send_message(event.target,qwqlist[qwq]);
                 }
                 else if(therecmd(event.message,"yz-hs"))
                 {
@@ -145,20 +119,20 @@ CQ_INIT {
                     if(therecmd(event.message,"-help-"))
                         send_message(event.target,REPEAT_HELP);
                     string str=event.message,sub[1000];
-                    int cnt=0,pre=0,pos=getstrp(str,"-pause-");
+                    int cnt=0,pre=0,pos=getstrp(str,PAUSE);
                     while(pos!=-1)
                     {
                         sub[++cnt]=str.substr(pre,pos-pre);
-                        pre=pos+7;
-                        str[pre-3]=0;//破坏-pause-使得识别不到
-                        pos=getstrp(str,"-pause-");
+                        pre=pos+PAUSE.length();
+                        str=str.substr(pre,str.length());
+                        pos=getstrp(str,PAUSE);
                     }
-                    sub[++cnt]=str.substr(pre,str.length()-pre);
+                    sub[++cnt]=str;
                     for(int i=1;i<=cnt;i++)
                         send_message(event.target,AIrepeat(sub[i]));
-                    int tmp=rand()%100;
-                    if(tmp<=10)
-                        send_message(event.target,"[CQ:face,id=187]");
+                    int tmp=rand()%100+1;
+                    if(tmp<=RANDOM_SEND_P)
+                        send_message(event.target,RANDOM_SEND_M);
                 }
             } 
 
@@ -168,7 +142,6 @@ CQ_INIT {
     });
 
     on_group_message([](const GroupMessageEvent &event) {
-        static const set<int64_t> ENABLED_GROUPS = {1093911579,790890146,788218488,1085366379,817607767,659164017,383575479,1015504552};
         if (ENABLED_GROUPS.count(event.group_id) == 0) return; // 不在启用的群中, 忽略
         try {
 
@@ -206,8 +179,8 @@ CQ_INIT {
             {
                 if(therecmd(event.message,"-help-"))
                     send_message(event.target,QWQ_HELP);
-                int qwqnum=rand()%10;
-                send_message(event.target,qwqlist[qwqnum]);
+                int qwq=rand()%qwqnum;
+                send_message(event.target,qwqlist[qwq]);
             }
             else if(mcmd=="$ban")
             {
@@ -232,7 +205,7 @@ CQ_INIT {
                 if(therecmd(event.message,"-help-"))
                     send_message(event.target,NAME_HELP);
                 int64_t QQnum=getncmd(event.message,1);
-                string named=getstrcmd(event.message,1);
+                string named=getscmd(event.message,1);
                 set_group_card(event.group_id,QQnum,named);
             }
             else if(mcmd=="$rep")
@@ -240,17 +213,17 @@ CQ_INIT {
                 if(therecmd(event.message,"-help-"))
                     send_message(event.target,REP_HELP);
                 int64_t fortimes=getncmd(event.message,1);
-                string str=getstrcmd(event.message,1),sub[1000];
-                int cnt=0,pre=0,pos=getstrp(str,"-pause-");
+                string str=event.message,sub[1000];
+                int cnt=0,pre=0,pos=getstrp(str,PAUSE);
                 while(pos!=-1)
                 {
                     sub[++cnt]=str.substr(pre,pos-pre);
-                    pre=pos+7;
-                    str[pre-3]=0;//破坏-pause-使得识别不到
-                    pos=getstrp(str,"-pause-");
+                    pre=pos+PAUSE.length();
+                    str=str.substr(pre,str.length());
+                    pos=getstrp(str,PAUSE);
                 }
-                sub[++cnt]=str.substr(pre,str.length()-pre);
-                for(int i=1;i<=mymin(10,fortimes);i++)
+                sub[++cnt]=str;
+                for(int64_t i=1;i<=mymin(10,fortimes);i++)
                     for(int j=1;j<=cnt;j++)
                         send_message(event.target,sub[j]);
             }
@@ -261,15 +234,15 @@ CQ_INIT {
                     if(therecmd(event.message,"-help-"))
                         send_message(event.target,REPEAT_HELP);
                     string str=event.message,sub[1000];
-                    int cnt=0,pre=0,pos=getstrp(str,"-pause-");
+                    int cnt=0,pre=0,pos=getstrp(str,PAUSE);
                     while(pos!=-1)
                     {
                         sub[++cnt]=str.substr(pre,pos-pre);
-                        pre=pos+7;
-                        str[pre-3]=0;//破坏-pause-使得识别不到
-                        pos=getstrp(str,"-pause-");
+                        pre=pos+PAUSE.length();
+                        str=str.substr(pre,str.length());
+                        pos=getstrp(str,PAUSE);
                     }
-                    sub[++cnt]=str.substr(pre,str.length()-pre);
+                    sub[++cnt]=str;
                     for(int i=1;i<=cnt;i++)
                         send_message(event.target,AIrepeat(sub[i]));
                 }
@@ -283,8 +256,8 @@ CQ_INIT {
                 }
                 else if(therecmd(event.message,"嘤")||therecmd(event.message,"哼")||therecmd(event.message,"[CQ:face,id=187]"))
                 {
-                    int qwqnum=rand()%10;
-                    send_message(event.target,qwqlist[qwqnum]);
+                    int qwq=rand()%qwqnum;
+                    send_message(event.target,qwqlist[qwq]);
                 }
                 else if(therecmd(event.message,"yz-hs"))
                 {
@@ -296,9 +269,9 @@ CQ_INIT {
                 }
                 else
                 {
-                    int tmp=rand()%100;
-                    if(tmp<=10)
-                        send_message(event.target,"[CQ:face,id=187]");
+                    int tmp=rand()%100+1;
+                    if(tmp<=RANDOM_SEND_P)
+                        send_message(event.target,RANDOM_SEND_M);
                 }
             } 
             
