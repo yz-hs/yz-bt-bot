@@ -13,6 +13,10 @@ extern string mcmdlist[];
 extern int64_t mcmdnum;
 extern string scmdlist[];
 extern int64_t scmdnum;
+extern char NFLAG;
+extern char SFLAG;
+extern string NFLAG_S;
+extern string SFLAG_S;
 
 /*
 2020=03-27 写此三个函数
@@ -81,12 +85,13 @@ int64_t getncmd(string str,int fortimes)//获取数字参数
     int len=str.length();
     for(int i=0;i<len;i++)
     {
-        if(str[i]=='*')
+        if(str[i]==NFLAG)
         {
-            num=0,tal++;
-            for(int j=i+1;str[j]>='0'&&str[j]<='9';j++)
-                num=num*10+(str[j]-'0'),i=j;
-            ans=num,i++;
+            str[i]=0,num=0,tal++;
+            for(int j=i+1;j<=getstrp(str,NFLAG_S);j++)
+                if(str[j]>='0'&&str[j]<='9')
+                    num=num*10+(str[j]-'0');
+            ans=num,i=getstrp(str,NFLAG_S)+1,str[getstrp(str,NFLAG_S)]=0;
         }
         if(tal>=fortimes) break;
     }
@@ -100,10 +105,10 @@ string getscmd(string str,int fortimes)//获取字符串参数
     int len=str.length();
     for(int i=0;i<len;i++)
     {
-        if(str[i]=='#')
+        if(str[i]==SFLAG)
         {
             i++;int tend=i;tal++;
-            for(;tend<len&&str[tend]!='#';tend++);
+            for(;tend<len&&str[tend]!=SFLAG;tend++);
             if(tend<len) ans=str.substr(i,tend-i);
             i=tend+1;
         }

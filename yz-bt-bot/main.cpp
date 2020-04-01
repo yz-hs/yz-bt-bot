@@ -26,6 +26,7 @@ extern string WHOLE_BAN_HELP;
 extern string PEO_HELP;
 extern string NAME_HELP;
 extern string REP_HELP;
+extern string LIKE_HELP;
 extern string NOT_FOUND;
 extern string qwqlist[];
 extern string HELP;
@@ -95,6 +96,14 @@ CQ_INIT {
                     for(int j=1;j<=cnt;j++)
                         send_message(event.target,sub[j]);
             }
+            /*else if(mcmd=="$like")
+            {
+                if(therecmd(event.message,"-help-"))
+                    send_message(event.target,LIKE_HELP);
+                int64_t QQnum=getncmd(event.message,1);
+                int64_t fortimes=getncmd(event.message,2);
+                send_like(QQnum,fortimes);
+            }*///氪金版
             else
             {
                 if(therecmd(event.message,"IOI")&&therecmd(event.message,"AK"))
@@ -227,6 +236,14 @@ CQ_INIT {
                     for(int j=1;j<=cnt;j++)
                         send_message(event.target,sub[j]);
             }
+            /*else if(mcmd=="$like")
+            {
+                if(therecmd(event.message,"-help-"))
+                    send_message(event.target,LIKE_HELP);
+                int64_t QQnum=getncmd(event.message,1);
+                int64_t fortimes=getncmd(event.message,2);
+                send_like(QQnum,fortimes);
+            }*///氪金版
             else
             {
                 if(mcmd==NOT_FOUND&&therecmd(event.message,"$"))

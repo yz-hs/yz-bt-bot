@@ -32,6 +32,7 @@ string WHOLE_BAN_HELP={"格式：$whole_ban (*0或1*)。设置/取消全员禁�
 string PEO_HELP={"格式：$peo。获取群友列表。"};
 string NAME_HELP={"格式：$name (*QQ号码*) (#字符串#)。更改群名片。"};
 string REP_HELP={"格式：$rep (*小于15*) (#话(-pause-)#)。次数完全复读。"};
+//string LIKE_HELP={"格式：$rep (*QQ号码*) (*次数*)。发送好友赞。"}; //氪金版
 
 string HELP={
     "帮助—— yz-bt酱（命令以$开头）\
@@ -60,7 +61,7 @@ string ABOUT={
    \nyz-bt酱 v2.0.0"
 };//yz-hs提示您 请不要改变版权信息！
 
-//**********************************************************************************************命令
+//*******************************************************************************************************************命令
 //注掉任意命令即禁用命令
 
 string NOT_FOUND="notfound";//404找不到
@@ -77,6 +78,7 @@ string mcmdlist[]={//主命令
     "$about",
     "$help",
     "$rep"
+    //"$like"
 };
 int64_t mcmdnum=11;
 
@@ -84,3 +86,8 @@ string scmdlist[]={//参数
     "-help-"
 };
 int64_t scmdnum=1;
+
+char NFLAG='*';//数字参数标识符
+string NFLAG_S="*";//兼容，请保持与以上一致
+char SFLAG='#';//字符串参数标识符
+string SFLAG_S="#";//兼容，请保持与以上一致
