@@ -106,43 +106,27 @@ CQ_INIT {
             }*///氪金版
             else
             {
-                if(therecmd(event.message,"IOI")&&therecmd(event.message,"AK"))
+                if(therecmd(event.message,"-help-"))
+                    send_message(event.target,REPEAT_HELP);
+                string str=event.message,sub[1000];
+                int cnt=0,pre=0,pos=getstrp(str,PAUSE);
+                while(pos!=-1)
                 {
-                    send_message(event.target,"orz！太强了！%%%！");
+                    sub[++cnt]=str.substr(pre,pos-pre);
+                    pre=pos+PAUSE.length();
+                    str=str.substr(pre,str.length());
+                    pos=getstrp(str,PAUSE);
                 }
-                else if(therecmd(event.message,"嘤")||therecmd(event.message,"哼")||therecmd(event.message,"[CQ:face,id=187]"))
+                sub[++cnt]=str;
+                for(int i=1;i<=cnt;i++)
                 {
-                    int qwq=rand()%qwqnum;
-                    send_message(event.target,qwqlist[qwq]);
+                    string tmp=AIrepeat(sub[i]);
+                    if(tmp!=NOT_FOUND)
+                        send_message(event.target,tmp);
                 }
-                else if(therecmd(event.message,"yz-hs"))
-                {
-                    send_message(event.target,"谁叫她？叫她干吗？[CQ:face,id=187]");
-                }
-                else if(therecmd(event.message,"yz-bt"))
-                {
-                    send_message(event.target,"谁叫我？叫我干吗？[CQ:face,id=187]");
-                }
-                else
-                {
-                    if(therecmd(event.message,"-help-"))
-                        send_message(event.target,REPEAT_HELP);
-                    string str=event.message,sub[1000];
-                    int cnt=0,pre=0,pos=getstrp(str,PAUSE);
-                    while(pos!=-1)
-                    {
-                        sub[++cnt]=str.substr(pre,pos-pre);
-                        pre=pos+PAUSE.length();
-                        str=str.substr(pre,str.length());
-                        pos=getstrp(str,PAUSE);
-                    }
-                    sub[++cnt]=str;
-                    for(int i=1;i<=cnt;i++)
-                        send_message(event.target,AIrepeat(sub[i]));
-                    int tmp=rand()%100+1;
-                    if(tmp<=RANDOM_SEND_P)
-                        send_message(event.target,RANDOM_SEND_M);
-                }
+                int tmp=rand()%100+1;
+                if(tmp<=RANDOM_SEND_P)
+                    send_message(event.target,RANDOM_SEND_M);
             } 
 
         } catch (ApiError &err) {
@@ -246,50 +230,31 @@ CQ_INIT {
             }*///氪金版
             else
             {
-                if(mcmd==NOT_FOUND&&therecmd(event.message,"$"))
-                {
-                    if(therecmd(event.message,"-help-"))
-                        send_message(event.target,REPEAT_HELP);
-                    string str=event.message,sub[1000];
-                    int cnt=0,pre=0,pos=getstrp(str,PAUSE);
-                    while(pos!=-1)
-                    {
-                        sub[++cnt]=str.substr(pre,pos-pre);
-                        pre=pos+PAUSE.length();
-                        str=str.substr(pre,str.length());
-                        pos=getstrp(str,PAUSE);
-                    }
-                    sub[++cnt]=str;
-                    for(int i=1;i<=cnt;i++)
-                        send_message(event.target,AIrepeat(sub[i]));
-                }
-                else if(therecmd(event.message,"!sleep"))
+                if(therecmd(event.message,"!sleep"))
                 {
                     set_group_ban(event.group_id,event.user_id,60*60*8);
                 }
-                else if(therecmd(event.message,"IOI")&&therecmd(event.message,"AK"))
+                if(therecmd(event.message,"-help-"))
+                    send_message(event.target,REPEAT_HELP);
+                string str=event.message,sub[1000];
+                int cnt=0,pre=0,pos=getstrp(str,PAUSE);
+                while(pos!=-1)
                 {
-                    send_message(event.target,"orz！太强了！%%%！");
+                    sub[++cnt]=str.substr(pre,pos-pre);
+                    pre=pos+PAUSE.length();
+                    str=str.substr(pre,str.length());
+                    pos=getstrp(str,PAUSE);
                 }
-                else if(therecmd(event.message,"嘤")||therecmd(event.message,"哼")||therecmd(event.message,"[CQ:face,id=187]"))
+                sub[++cnt]=str;
+                for(int i=1;i<=cnt;i++)
                 {
-                    int qwq=rand()%qwqnum;
-                    send_message(event.target,qwqlist[qwq]);
+                    string tmp=AIrepeat(sub[i]);
+                    if(tmp!=NOT_FOUND)
+                        send_message(event.target,tmp);
                 }
-                else if(therecmd(event.message,"yz-hs"))
-                {
-                    send_message(event.target,"谁叫她？叫她干吗？[CQ:face,id=187]");
-                }
-                else if(therecmd(event.message,"yz-bt"))
-                {
-                    send_message(event.target,"谁叫我？叫我干吗？[CQ:face,id=187]");
-                }
-                else
-                {
-                    int tmp=rand()%100+1;
-                    if(tmp<=RANDOM_SEND_P)
-                        send_message(event.target,RANDOM_SEND_M);
-                }
+                int tmp=rand()%100+1;
+                if(tmp<=RANDOM_SEND_P)
+                    send_message(event.target,RANDOM_SEND_M);
             } 
             
         } catch (ApiError &err) {
