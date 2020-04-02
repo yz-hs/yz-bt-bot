@@ -82,7 +82,7 @@ CQ_INIT {
                 if(therecmd(event.message,"-help-"))
                     send_message(event.target,REP_HELP);
                 int64_t fortimes=getncmd(event.message,1);
-                string str=event.message,sub[1000];
+                string str=getscmd(event.message,1),sub[1000];
                 int cnt=0,pre=0,pos=getstrp(str,PAUSE);
                 while(pos!=-1)
                 {
@@ -222,7 +222,7 @@ CQ_INIT {
                 if(therecmd(event.message,"-help-"))
                     send_message(event.target,REP_HELP);
                 int64_t fortimes=getncmd(event.message,1);
-                string str=event.message,sub[1000];
+                string str=getscmd(event.message,1),sub[1000];
                 int cnt=0,pre=0,pos=getstrp(str,PAUSE);
                 while(pos!=-1)
                 {
