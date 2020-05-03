@@ -3,7 +3,9 @@ yz-bt QQ机器人（只供学习 github 用，无实用性）。
 
 ## 简介
 
-需依赖 Cool Q，使用 C++ 语言开发（结果被个`dongbei.py`变成了`python`）。
+本 bot 由 可爱的 yz-hs 开发。
+
+需依赖 Cool Q，使用 C++ 语言开发。
 
 是本作者随便以游戏的心态开发着玩的。不过欢迎提出建议。
 
@@ -12,11 +14,19 @@ yz-bt QQ机器人（只供学习 github 用，无实用性）。
 ## 开发
 
 - 按照 https://cqcppsdk.cqp.moe/ 的文档建好环境。
-- 将`yz-bt-bot`文件夹放在`\dev\cqcppsdk-template\src`文件夹中。
 - 将`yz-bt-run`文件夹放在`\`中（`dongbei.py`语言解释器来自第三方，需`python`环境）。
+- 将其他文件（夹）放在`\dev\cqcppsdk-template\src`文件夹中。
 
 ## 鸣谢
 
-参与测试（就是“试验品”）：`sxs`。
+主要开发者：`yz-hs`。（我 谢 我 自 己
+
+参与开发者：`yz-hs`。
+
+参与测试：`sxs`。
 
 支持者：`fqt`，`sxs`，bot的QQ账号。
+
+## Old versions
+
+旧版本。版本之间相互独立（即都可以单独运行）。
