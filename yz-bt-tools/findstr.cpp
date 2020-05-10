@@ -1,5 +1,5 @@
 #pragma once
-#include"findstr.h"
+#include"findstr.hpp"
 using namespace std;
 
 void re_place(string &strBig,const string &strsrc,const string &strdst,bool type)//文本串，被替换串，替换串，类型（1为替换1次，0为全部替换）
@@ -27,5 +27,7 @@ int getstrp(const string &str,const string &sub)//返回格式串在文本串中
 
 bool ifgetstrp(const string &str,const string &sub)//返回格式串是否在文本串中
 {
-    return getstrp(str,sub)==-1?0:1;
+    if(getstrp(str,sub)==-1)
+        return 0;
+    return 1;
 }

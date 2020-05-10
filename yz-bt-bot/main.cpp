@@ -1,9 +1,8 @@
 #pragma once
-#include <sstream>
-#include <fstream>
 #include <cqcppsdk/cqcppsdk.h>
-#include "../yz-bt-cmd/all_include.h"
-#include "../yz-bt-tools/all_include.h"
+#include "../yz-bt-cmd/all_include.hpp"
+#include "../yz-bt-tools/all_include.hpp"
+#include "../yz-bt-wat/all_include.hpp"
 
 using namespace cq;
 using namespace std;
@@ -17,10 +16,12 @@ CQ_INIT {
 
     on_private_message([](const PrivateMessageEvent &event) {
         try {
-
             if(ifgetstrp(event.message,QWQNAME()))
                 QWQMAIN(event);
-
+            else if(ifgetstrp(event.message,HELPNAME()))
+                HELPMAIN(event);
+            else if(ifgetstrp(event.message,BANNAME()))
+                BANMAIN(event);
         } catch (ApiError &err) {
             logging::warning("私聊", "私聊消息处理出现错误, 错误码: " + to_string(err.code));
         }
@@ -28,10 +29,12 @@ CQ_INIT {
 
     on_group_message([](const GroupMessageEvent &event) {
         try {
-            
             if(ifgetstrp(event.message,QWQNAME()))
                 QWQMAIN(event);
-
+            else if(ifgetstrp(event.message,HELPNAME()))
+                HELPMAIN(event);
+            else if(ifgetstrp(event.message,BANNAME()))
+                BANMAIN(event);
         } catch (ApiError &err) {
             logging::warning("群聊", "群聊消息处理出现错误, 错误码: " + to_string(err.code));
         }
@@ -41,15 +44,13 @@ CQ_INIT {
         event.block(); // 阻止当前事件传递到下一个插件
     });
 
-    on_group_member_decrease([](const auto &event) {
-        
+    on_group_member_decrease([](const GroupMemberDecreaseEvent &event) {
+        gmem_d_MAIN(event);
     });
-
-    on_group_member_increase([](const auto &event) {
-        
+    on_group_member_increase([](const GroupMemberIncreaseEvent &event) {
+        gmem_i_MAIN(event);
     });
-
-    on_group_upload([](const auto &event) { // 可以使用 auto 自动推断类型
-        
+    on_group_upload([](const GroupUploadEvent &event) {
+        uplf_MAIN(event);
     });
 }

@@ -1,11 +1,12 @@
 #pragma once
 #include <cqcppsdk/cqcppsdk.h>
-#include "Command.h"
-#include "../yz-bt-tools/all_include.h"
+#include "Command.hpp"
+#include "../yz-bt-tools/all_include.hpp"
 using namespace cq;
 using namespace std;
 
 void Command::EDIT_HELP(string tmp){HELP=tmp;return;}
+void Command::EDIT_DISABLE(string tmp){DISABLE=tmp;return;}
 void Command::ADD_GROUPS(int64_t num){ENABLED_GROUPS.insert(num);return;}
 void Command::ADD_PERSONS(int64_t num){ENABLED_PERSONS.insert(num);return;}
 void Command::SET_IS_ALLSEND(bool a,bool b){IS_ALLPERSONS=a;IS_ALLGROUPS=b;return;}
@@ -23,7 +24,8 @@ int64_t getncmd(string str,int fortimes)
         int posp=getstrp(str,NFLAG);
         re_place(str,NFLAG,"",1);
         int posn=getstrp(str,NFLAG);
-        for(int j=posp;j<=posn;j++)
+        re_place(str,NFLAG,"",1);
+        for(int j=posp;j<=posn-1&&j<str.size();j++)
             num=num*10+str[j]-'0';
         ans=num;
     }
@@ -39,6 +41,7 @@ string getscmd(string str,int fortimes)
         int posp=getstrp(str,SFLAG);
         re_place(str,SFLAG,"",1);
         int posn=getstrp(str,SFLAG);
+        re_place(str,SFLAG,"",1);
         ans=str.substr(posp,posn-posp+1);
     }
     return ans;
