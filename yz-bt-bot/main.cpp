@@ -22,6 +22,15 @@ CQ_INIT {
                 HELPMAIN(event);
             else if(ifgetstrp(event.message,BANNAME()))
                 BANMAIN(event);
+            else if(ifgetstrp(event.message,WBANNAME()))
+                WBANMAIN(event);
+            else if(ifgetstrp(event.message,ABOUTNAME()))
+                ABOUTMAIN(event);
+            else if(ifgetstrp(event.message,REPNAME()))
+                REPMAIN(event);
+            else if(ifgetstrp(event.message,NAMENAME()))
+                NAMEMAIN(event);
+            else{}
         } catch (ApiError &err) {
             logging::warning("私聊", "私聊消息处理出现错误, 错误码: " + to_string(err.code));
         }
@@ -35,6 +44,15 @@ CQ_INIT {
                 HELPMAIN(event);
             else if(ifgetstrp(event.message,BANNAME()))
                 BANMAIN(event);
+            else if(ifgetstrp(event.message,WBANNAME()))
+                WBANMAIN(event);
+            else if(ifgetstrp(event.message,ABOUTNAME()))
+                ABOUTMAIN(event);
+            else if(ifgetstrp(event.message,REPNAME()))
+                REPMAIN(event);
+            else if(ifgetstrp(event.message,NAMENAME()))
+                NAMEMAIN(event);
+            else{}
         } catch (ApiError &err) {
             logging::warning("群聊", "群聊消息处理出现错误, 错误码: " + to_string(err.code));
         }

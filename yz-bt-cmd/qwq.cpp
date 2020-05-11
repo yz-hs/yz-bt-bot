@@ -17,7 +17,7 @@ int QWQCNT=20;
 void QWQSETTING()
 {
     qwq.EDIT_HELP("用法：$qwq [-help]。随机卖萌。参数：-help 显示此命令的帮助。");
-    qwq.ADD_GROUPS(1093911579);
+    qwq.ADD_GROUPS(1093911579);qwq.ADD_GROUPS(790890146);qwq.ADD_GROUPS(1085366379);
     qwq.ADD_PERSONS(2378975755);
     qwq.SET_IS_ALLSEND(0,0);
     qwq.CMD_NAME("$qwq");
@@ -41,6 +41,11 @@ void QWQMAIN(const PrivateMessageEvent &event)
         send_message(event.target,qwq.DISABLE);
         return;
     }
+    if(qwq.BLACK_PERSONS.count(event.user_id)>=1)
+    {
+        send_message(event.target,qwq.DISABLE);
+        return;
+    }
     if(ifgetstrp(event.message,"-help"))
         send_message(event.target,qwq.HELP);
     send_message(event.target,QWQLIST[rand()%20+1]);
@@ -56,8 +61,13 @@ void QWQMAIN(const GroupMessageEvent &event)
         send_message(event.target,qwq.DISABLE);
         return;
     }
+    if(qwq.BLACK_PERSONS.count(event.user_id)>=1)
+    {
+        send_message(event.target,qwq.DISABLE);
+        return;
+    }
     if(ifgetstrp(event.message,"-help"))
         send_message(event.target,qwq.HELP);
-    send_message(event.target,QWQLIST[rand()%20+1]);
+    send_message(event.target,QWQLIST[rand()%20]);
     return;
 }
