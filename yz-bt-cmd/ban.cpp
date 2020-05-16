@@ -8,7 +8,7 @@ Command ban,wban;
 void BANSETTING()
 {
     ban.EDIT_HELP("用法：$ban [-help] *num1* *num2*。\n参数：-help 输出帮助信息；num1 QQ号；num2 时间（秒）。\n特殊：需管理员权限。");
-    ban.ADD_GROUPS(1093911579);ban.ADD_GROUPS(1085366379);
+    ban.ADD_GROUPS(1093911579);ban.ADD_GROUPS(1085366379);ban.ADD_GROUPS(790890146);
     ban.ADD_PERSONS(2378975755);
     ban.SET_IS_ALLSEND(0,0);
     ban.CMD_NAME("$ban");
@@ -19,7 +19,7 @@ void BANSETTING()
 void WBANSETTING()
 {
     wban.EDIT_HELP("用法：$wban [-help] *num(bool)*。\n参数：-help 输出帮助信息；num 是(1)否(0)开启。\n特殊：需管理员权限。");
-    wban.ADD_GROUPS(1093911579);wban.ADD_GROUPS(1085366379);
+    wban.ADD_GROUPS(1093911579);wban.ADD_GROUPS(1085366379);wban.ADD_GROUPS(790890146);
     wban.ADD_PERSONS(2378975755);
     wban.SET_IS_ALLSEND(0,0);
     wban.CMD_NAME("$wban");

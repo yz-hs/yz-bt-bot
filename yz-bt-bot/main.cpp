@@ -16,6 +16,7 @@ CQ_INIT {
 
     on_private_message([](const PrivateMessageEvent &event) {
         try {
+
             if(ifgetstrp(event.message,QWQNAME()))
                 QWQMAIN(event);
             else if(ifgetstrp(event.message,HELPNAME()))
@@ -30,7 +31,12 @@ CQ_INIT {
                 REPMAIN(event);
             else if(ifgetstrp(event.message,NAMENAME()))
                 NAMEMAIN(event);
-            else{}
+            else if(ifgetstrp(event.message,RUNCODENAME()))
+                RUNCODEMAIN(event);
+            else{AIrepeat(event);}
+
+            SPE_WORK_MAIN(event);
+
         } catch (ApiError &err) {
             logging::warning("私聊", "私聊消息处理出现错误, 错误码: " + to_string(err.code));
         }
@@ -38,6 +44,7 @@ CQ_INIT {
 
     on_group_message([](const GroupMessageEvent &event) {
         try {
+
             if(ifgetstrp(event.message,QWQNAME()))
                 QWQMAIN(event);
             else if(ifgetstrp(event.message,HELPNAME()))
@@ -52,7 +59,12 @@ CQ_INIT {
                 REPMAIN(event);
             else if(ifgetstrp(event.message,NAMENAME()))
                 NAMEMAIN(event);
-            else{}
+            else if(ifgetstrp(event.message,RUNCODENAME()))
+                RUNCODEMAIN(event);
+            else{AIrepeat(event);}
+
+            SPE_WORK_MAIN(event);
+
         } catch (ApiError &err) {
             logging::warning("群聊", "群聊消息处理出现错误, 错误码: " + to_string(err.code));
         }

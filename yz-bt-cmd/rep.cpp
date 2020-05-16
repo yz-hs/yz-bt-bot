@@ -7,7 +7,7 @@ Command rep;
 
 void REPSETTING()
 {
-    rep.EDIT_HELP("用法：$rep [-help] *num* #str#。复读您的消息（最多5次）。\n参数：-help 显示此命令的帮助；num 复读次数；str 复读内容。\n特殊：可以使用特殊识别符");
+    rep.EDIT_HELP("用法：$rep [-help] *num* #str#。复读您的消息（最多3次）。\n参数：-help 显示此命令的帮助；num 复读次数；str 复读内容。\n特殊：可以使用特殊识别符");
     rep.ADD_GROUPS(1093911579);rep.ADD_GROUPS(790890146);rep.ADD_GROUPS(1085366379);
     rep.ADD_PERSONS(2378975755);
     rep.SET_IS_ALLSEND(0,0);
@@ -16,7 +16,7 @@ void REPSETTING()
     return;
 }
 
-int REPMAXNUM=5;//最多复读次数
+int REPMAXNUM=3;//最多复读次数
 
 //*************************************************************可以更改以上内容
 
@@ -70,7 +70,7 @@ void REPMAIN(const GroupMessageEvent &event)
     try{
         int64_t num=getncmd(event.message,1);
         string str=getscmd(event.message,1);
-        if(num>=REPMAXNUM) num=REPMAXNUM;
+        if(num>=REPMAXNUM) num=REPMAXNUM,send_message(event.target,"消息最多复读"+to_string(REPMAXNUM)+"次！");
         for(int i=1;i<=num;i++)
             ex_send_message(event.target,str,0);
     } catch (ApiError &) {

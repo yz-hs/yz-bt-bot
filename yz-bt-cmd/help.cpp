@@ -9,9 +9,11 @@ string HELPMEG="\
 \
 帮助 - yz-bt：\n\
 - 目前有以下命令：\n\
-   qwq,help,ban,wban,about,rep,name。\n\
+   qwq,help,ban,wban,about,rep,name,runcode。\n\
 - 目前可监测事件：\n\
-   加入/离开群，文件上传。\
+   加入/离开群，文件上传。\n\
+- 其他：\n\
+   彩蛋、AI复读。\
 \
 ";//请酌情修改。
 

@@ -1,5 +1,4 @@
-//仅作为模板，不作为代码的一部分！
-#pragma name
+#pragma once
 #include "模板.hpp"
 #include "../yz-bt-tools/all_include.hpp"
 #include "Command.hpp"
@@ -9,7 +8,7 @@ Command name;
 void NAMESETTING()
 {
     name.EDIT_HELP("用法：$name [-help] *num* #str#。设置群名片。\n参数：-help 显示此命令的帮助；num QQ号；str 群名片。\n特殊：需管理员权限。");
-    name.ADD_GROUPS(1093911579);name.ADD_GROUPS(1085366379);
+    name.ADD_GROUPS(1093911579);name.ADD_GROUPS(1085366379);name.ADD_GROUPS(790890146);
     name.ADD_PERSONS(2378975755);
     name.SET_IS_ALLSEND(0,0);
     name.CMD_NAME("$name");

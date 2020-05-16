@@ -5,6 +5,6 @@
 ## 步骤
 
 - clone 源代码。
-- 将`yz-bt-run`放在`\`目录下（指与你的 CoolQ 目录同级）。
+- 将`\third_party\yz-bt-run`放在`\`目录下（指与你的 CoolQ 目录同级）。
 - 将其他文件夹放在`\dev\cqcppsdk-template(可能不一样)\src`下（`Old versions`是旧版本，不要放）。
 - 搞出`app.dll`来（接下来你就知道怎么做了）。

@@ -1,4 +1,3 @@
-//仅作为模板，不作为代码的一部分！
 #pragma once
 #include <cqcppsdk/cqcppsdk.h>
 #include <string>
